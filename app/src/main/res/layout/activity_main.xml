@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical"
     tools:context="com.example.ryu.walkpast.MainActivity">
 
@@ -20,5 +23,13 @@
         android:id="@+id/choiceButton1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/counterTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="39dp"
+        android:contentDescription="@string/steps_taken"
+        android:text="@string/_0" />
 
 </LinearLayout>
