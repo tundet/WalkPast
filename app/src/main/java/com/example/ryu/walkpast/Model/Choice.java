@@ -7,19 +7,19 @@ package com.example.ryu.walkpast.Model;
  */
 
 public class Choice {
-    private String mText; //text that will show on the button
-    private int mNextPage; //store the next page number
+    private String choiceText; //text that will show on the button
+    private int nextPage; //store the next page number
 
-    Choice(String text, int nextPage) {
-        mText = text;
-        mNextPage = nextPage;
+    Choice(String text, int page) {
+        choiceText = text;
+        nextPage = page;
     }
 
     public String getText() {
-        return mText;
+        return choiceText;
     }
 
     public int getNextPage() {
-        return mNextPage;
+        return nextPage;
     }
 }

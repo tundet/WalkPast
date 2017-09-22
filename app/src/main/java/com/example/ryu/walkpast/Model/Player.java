@@ -10,7 +10,18 @@ public class Player {
     private int totalSteps;
     private int steps;
 
+    public void setTotalSteps(int steps) {
+        this.totalSteps += steps;
+    }
     public void setSteps(int steps) {
         this.steps = steps;
+    }
+
+    public int getTotalSteps() {
+        return totalSteps;
+    }
+
+    public int getSteps() {
+        return steps;
     }
 }

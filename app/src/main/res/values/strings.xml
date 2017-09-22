@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WalkPast</string>
-    <string name="steps_taken">steps taken</string>
+    <string name="steps_taken">Steps Taken: </string>
     <string name="_0">0</string>
-    <string name="total_steps">Total Steps:</string>
+    <string name="total_steps">Total Steps: </string>
+    <string name="needed_steps">Steps to take: </string>
 </resources>

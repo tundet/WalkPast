@@ -7,23 +7,26 @@ package com.example.ryu.walkpast.Model;
 
 public class Page {
 
-    private String mText;
+    private String story;
     private Choice mChoice1;
     private Choice mChoice2;
+    private int reqSteps; //required steps to walk
 
-    Page(String text, Choice choice1, Choice choice2) {
-        mText = text;
+    Page(String text, Choice choice1, Choice choice2, int steps) {
+        story = text;
         mChoice1 = choice1;
         mChoice2 = choice2;
+        reqSteps = steps;
     }
 
-    Page(String text, Choice choice1){
-        mText = text;
+    Page(String text, Choice choice1, int steps){
+        story = text;
         mChoice1 = choice1;
+        reqSteps = steps;
     }
 
     public String getText() {
-        return mText;
+        return story;
     }
 
     public Choice getChoice1() {
@@ -33,4 +36,6 @@ public class Page {
     public Choice getChoice2() {
         return mChoice2;
     }
+
+    public int getSteps() { return reqSteps; }
 }

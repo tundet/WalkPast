@@ -2,10 +2,12 @@ package com.example.ryu.walkpast.Controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -29,11 +31,12 @@ public class StepCounter implements SensorEventListener {
 
     private int mLastAccuracy;
     private Listener mListener;
-    private int totalsteps;
+    private int totalSteps;
     private int steps;
 
     public StepCounter(Context context) {
         mSensorManager = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
+        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mStepSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
     }
 
@@ -66,11 +69,11 @@ public class StepCounter implements SensorEventListener {
 
         //counter returns total number since registered so we need to substract the initial amount
         if (event.sensor == mStepSensor) {
-            if (totalsteps < 1) {
+            if (totalSteps < 1) {
                 // initial value
-                totalsteps = Math.round(event.values[0]);
+                totalSteps = Math.round(event.values[0]);
             }
-            steps = Math.round(event.values[0]) - totalsteps;
+            steps = Math.round(event.values[0]) - totalSteps;
             mListener.onStepChanged(steps);
         }
 
