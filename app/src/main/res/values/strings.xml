@@ -6,4 +6,13 @@
     <string name="needed_steps">Steps to take: </string>
     <string name="update_button">Test</string>
     <string name="who_are_you">Who are you?</string>
+    <string name="background">Background</string>
+    <string name="game_story">Game Story</string>
+    <string name="choice_1">Choice 1</string>
+    <string name="choice_2">Choice 2</string>
+    <string name="step_progress_bar">Step Progress Bar</string>
+    <string name="user_s_character">User\'s character</string>
+    <string name="asking_user_s_name">Asking user\'s name</string>
+    <string name="user_input_for_their_name">User input for their name</string>
+    <string name="button_to_give_name">Button to give name</string>
 </resources>

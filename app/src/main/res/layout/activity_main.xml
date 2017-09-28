@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/bg1"
-        android:alpha="0.6"/>
+        android:alpha="0.6"
+        android:clickable="false"
+        android:contentDescription="@string/background" />
 
     <fragment
         android:layout_marginTop="5dp"
@@ -37,21 +39,27 @@
         <TextView
             style="@style/ViewTheme"
             android:id="@+id/storyTextView"
+            android:contentDescription="@string/game_story"
             android:layout_width="match_parent"
+            android:clickable="false"
             android:layout_height="wrap_content" />
 
         <Button
             style="@style/ViewTheme"
             android:id="@+id/choiceButton2"
+            android:contentDescription="@string/choice_1"
             android:layout_width="wrap_content"
             android:background="@drawable/roundbutton"
+            android:clickable="true"
             android:layout_height="wrap_content" />
 
         <Button
             style="@style/ViewTheme"
             android:id="@+id/choiceButton1"
+            android:contentDescription="@string/choice_2"
             android:layout_width="wrap_content"
             android:background="@drawable/roundbutton"
+            android:clickable="true"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -61,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="39dp"
             android:contentDescription="@string/steps_taken"
+            android:clickable="false"
             android:text="@string/_0" />
 
         <TextView
@@ -70,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="39dp"
             android:contentDescription="@string/total_steps"
+            android:clickable="false"
             android:text="@string/_0" />
     </LinearLayout>
 
@@ -95,6 +105,8 @@
         android:layout_marginBottom="41dp"
         android:progressDrawable="@drawable/custom_progress"
         android:layout_alignParentBottom="true"
+        android:contentDescription="@string/step_progress_bar"
+        android:clickable="false"
         android:visibility="invisible" />
 
 </RelativeLayout>

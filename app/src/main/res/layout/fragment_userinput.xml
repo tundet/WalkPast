@@ -11,6 +11,8 @@
         android:layout_margin="@dimen/smalldp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/asking_user_s_name"
+        android:clickable="false"
         android:text="@string/who_are_you" />
 
     <LinearLayout
@@ -25,6 +27,8 @@
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:contentDescription="@string/user_input_for_their_name"
+            android:clickable="true"
             android:inputType="text">
 
             <requestFocus />
@@ -38,6 +42,8 @@
             android:elevation="4dp"
             android:text="@string/update_button"
             android:background="@drawable/roundbutton"
+            android:clickable="true"
+            android:contentDescription="@string/button_to_give_name"
             android:layout_weight="2"/>
     </LinearLayout>
 
