@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/roundblack">
+
+    <TextView
+        style="@style/ViewTheme"
+        android:id="@+id/whoareyou"
+        android:layout_margin="@dimen/smalldp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/who_are_you" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/ViewTheme"
+            android:id="@+id/user_input"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text">
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            style="@style/ViewTheme"
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:text="@string/update_button"
+            android:background="@drawable/roundbutton"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+</LinearLayout>

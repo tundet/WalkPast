@@ -8,7 +8,7 @@ package com.example.ryu.walkpast.Model;
 public class Story {
 
     private Page[] mPages;
-
+    //TODO can the story be store as a database (instead of hardcoded here)?
     public Story() {
         mPages = new Page[7]; //Stories array
 

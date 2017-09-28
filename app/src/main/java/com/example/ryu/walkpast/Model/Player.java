@@ -9,6 +9,7 @@ public class Player {
 
     private int totalSteps;
     private int steps;
+    private String avatar;
 
     public void setTotalSteps(int steps) {
         this.totalSteps += steps;

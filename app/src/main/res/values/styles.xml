@@ -3,9 +3,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">12sp</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ViewTheme">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_margin">@dimen/smalldp</item>
     </style>
 
 </resources>

@@ -1,52 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
     android:orientation="vertical"
     tools:context="com.example.ryu.walkpast.MainActivity">
 
-    <TextView
-        android:id="@+id/storyTextView"
+    <ImageView
+        android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1"
+        android:alpha="0.6"/>
 
-    <Button
-        android:id="@+id/choiceButton2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <fragment
+        android:layout_marginTop="5dp"
+        android:id="@+id/fragmentinput"
+        android:name="com.example.ryu.walkpast.Fragments.UserInputFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        tools:layout="@layout/fragment_userinput" />
 
-    <Button
-        android:id="@+id/choiceButton1"
+    <LinearLayout
+        android:layout_below="@+id/fragmentinput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/roundblack"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/ViewTheme"
+            android:id="@+id/storyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            style="@style/ViewTheme"
+            android:id="@+id/choiceButton2"
+            android:layout_width="wrap_content"
+            android:background="@drawable/roundbutton"
+            android:layout_height="wrap_content" />
+
+        <Button
+            style="@style/ViewTheme"
+            android:id="@+id/choiceButton1"
+            android:layout_width="wrap_content"
+            android:background="@drawable/roundbutton"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/ViewTheme"
+            android:id="@+id/counterTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="39dp"
+            android:contentDescription="@string/steps_taken"
+            android:text="@string/_0" />
+
+        <TextView
+            style="@style/ViewTheme"
+            android:id="@+id/totalTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="39dp"
+            android:contentDescription="@string/total_steps"
+            android:text="@string/_0" />
+    </LinearLayout>
+
+
+
+    <fragment
+        android:id="@+id/fragmentimg"
+        android:name="com.example.ryu.walkpast.Fragments.ImageFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/stepProgressBar"
+        tools:layout="@layout/fragment_image" />
 
     <ProgressBar
+        android:layout_margin="5dp"
         android:id="@+id/stepProgressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:max="100"
         android:progress="50"
+        android:layout_marginBottom="41dp"
+        android:progressDrawable="@drawable/custom_progress"
+        android:layout_alignParentBottom="true"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/counterTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="39dp"
-        android:contentDescription="@string/steps_taken"
-        android:text="@string/_0" />
-
-    <TextView
-        android:id="@+id/totalTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="39dp"
-        android:contentDescription="@string/total_steps"
-        android:text="@string/_0" />
-
-</LinearLayout>
+</RelativeLayout>

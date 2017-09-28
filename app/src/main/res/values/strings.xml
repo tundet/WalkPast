@@ -4,4 +4,6 @@
     <string name="_0">0</string>
     <string name="total_steps">Total Steps: </string>
     <string name="needed_steps">Steps to take: </string>
+    <string name="update_button">Test</string>
+    <string name="who_are_you">Who are you?</string>
 </resources>
