@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ryu.walkpast.MainActivity;
@@ -24,7 +25,10 @@ import com.example.ryu.walkpast.R;
 public class UserInputFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private EditText userInput;
+    public TextView welcomemsg;
+    public EditText userInput;
+    public Button update;
+    public Button start;
     private String userData;
     //private String gender;
     //private Spinner spinner;
@@ -35,17 +39,14 @@ public class UserInputFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_userinput, container, false);
+        welcomemsg = view.findViewById(R.id.whoareyou);
         userInput = view.findViewById(R.id.user_input);
 
         /*
-        //get the spinner from the xml.
+        //spinner in case of choosing gender
         spinner = view.findViewById(R.id.spinner);
-//create a list of items for the spinner.
         String[] items = new String[]{"female", "male", "all"};
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -68,12 +69,12 @@ public class UserInputFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
             }
         });
+        */
 
-*/
-        Button update = view.findViewById(R.id.button);
+        //button for name input
+        update = view.findViewById(R.id.button);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,8 +84,20 @@ public class UserInputFragment extends Fragment {
                 }
                 userData = userInput.getText().toString();
                 onButtonPressed(userData);
+                //start.setVisibility(View.VISIBLE);
             }
         });
+
+        /*
+        start = view.findViewById(R.id.buttonok);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getView().setVisibility(View.GONE);
+                // TODO: hide and show fragment in MainActivity
+            }
+        });
+        */
         return view;
     }
 
@@ -110,6 +123,7 @@ public class UserInputFragment extends Fragment {
         mListener = null;
     }
 
+    //tell that button has been pressed
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String userContent);
     }

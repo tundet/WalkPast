@@ -2,6 +2,7 @@ package com.example.ryu.walkpast;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ryu.walkpast.Controller.StepCounter;
+import com.example.ryu.walkpast.Database.DatabaseHelper;
 import com.example.ryu.walkpast.Fragments.ImageFragment;
 import com.example.ryu.walkpast.Fragments.UserInputFragment;
 import com.example.ryu.walkpast.Model.Page;
@@ -17,6 +19,7 @@ import com.example.ryu.walkpast.Model.Story;
 
 public class MainActivity extends Activity implements StepCounter.Listener, UserInputFragment.OnFragmentInteractionListener {
 
+    DatabaseHelper storyDatabase;
     private Story mStory = new Story();
     private TextView storyTextView;
     private TextView counterTextView;
@@ -34,6 +37,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        storyDatabase = new DatabaseHelper(this);
         //mImageView = (ImageView)findViewById(R.id.storyImageView);
         storyTextView = findViewById(R.id.storyTextView);
         counterTextView = findViewById(R.id.counterTextView);
@@ -127,18 +131,22 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         }
     }
 
+    //notice change in userinputfragment and update imagefragment
     @Override
     public void onFragmentInteraction(String userContent) {
+        UserInputFragment userInputFragment = (UserInputFragment)getFragmentManager().findFragmentById(R.id.fragmentinput);
         ImageFragment imageFragment = (ImageFragment)getFragmentManager().findFragmentById(R.id.fragmentimg);
         hideKeyboard(this);
+        userInputFragment.userInput.setVisibility(View.GONE);
+        userInputFragment.update.setVisibility(View.GONE);
+        userInputFragment.welcomemsg.setText("Hello " + userContent + ". Insert welcome message and instructions here." );
         imageFragment.updateImageView(userContent, this);
     }
 
+    //hide keyboard after pressing button
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
         View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
         if (view == null) {
             view = new View(activity);
         }

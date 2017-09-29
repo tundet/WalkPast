@@ -17,7 +17,7 @@
         android:contentDescription="@string/background" />
 
     <fragment
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:id="@+id/fragmentinput"
         android:name="com.example.ryu.walkpast.Fragments.UserInputFragment"
         android:layout_width="wrap_content"

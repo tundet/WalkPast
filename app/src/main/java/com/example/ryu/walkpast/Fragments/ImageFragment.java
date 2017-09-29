@@ -32,6 +32,7 @@ public class ImageFragment extends Fragment {
         return view;
     }
 
+    //insert fetched image to imageview
     public void updateImageView(String newText, Context context) {
         avatarURL = avatarAPI.generateAvatar(newText, "all", "256x");
         //Picasso.with(context).load(avatarURL).into(updateImage);

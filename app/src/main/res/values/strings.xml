@@ -15,4 +15,5 @@
     <string name="asking_user_s_name">Asking user\'s name</string>
     <string name="user_input_for_their_name">User input for their name</string>
     <string name="button_to_give_name">Button to give name</string>
+    <string name="start_game_button">Start game button</string>
 </resources>
