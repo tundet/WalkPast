@@ -10,16 +10,19 @@ public class Page {
     private String story;
     private Choice mChoice1;
     private Choice mChoice2;
+    private String bgImage;
     private int reqSteps; //required steps to walk
 
-    Page(String text, Choice choice1, Choice choice2, int steps) {
+    Page(String text, Choice choice1, Choice choice2, String bg, int steps) {
+        bgImage = bg;
         story = text;
         mChoice1 = choice1;
         mChoice2 = choice2;
         reqSteps = steps;
     }
 
-    Page(String text, Choice choice1, int steps){
+    Page(String text, Choice choice1, String bg, int steps) {
+        bgImage = bg;
         story = text;
         mChoice1 = choice1;
         reqSteps = steps;
@@ -38,4 +41,8 @@ public class Page {
     }
 
     public int getSteps() { return reqSteps; }
+
+    public String getBackground() {
+        return bgImage;
+    }
 }

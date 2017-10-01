@@ -10,7 +10,7 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.8"
+        android:alpha="0.6"
         android:clickable="false"
         android:contentDescription="@string/background"
         android:scaleType="centerCrop"
@@ -47,20 +47,22 @@
         <Button
             android:id="@+id/choiceButton2"
             style="@style/ViewTheme"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:contentDescription="@string/choice_1" />
+            android:contentDescription="@string/choice_1"
+            android:paddingHorizontal="@dimen/smalldp" />
 
         <Button
             android:id="@+id/choiceButton1"
             style="@style/ViewTheme"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:contentDescription="@string/choice_2" />
+            android:contentDescription="@string/choice_2"
+            android:paddingHorizontal="@dimen/smalldp" />
 
         <TextView
             android:id="@+id/counterTextView"
@@ -82,7 +84,6 @@
             android:contentDescription="@string/total_steps"
             android:text="@string/_0" />
     </LinearLayout>
-
 
 
     <fragment
