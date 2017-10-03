@@ -4,7 +4,7 @@
     <string name="_0">0</string>
     <string name="total_steps">Total Steps: </string>
     <string name="needed_steps">Steps to take: </string>
-    <string name="update_button">Test</string>
+    <string name="update_button">OK</string>
     <string name="who_are_you">Who are you?</string>
     <string name="background">Background</string>
     <string name="game_story">Game Story</string>
@@ -16,4 +16,26 @@
     <string name="user_input_for_their_name">User input for their name</string>
     <string name="button_to_give_name">Button to give name</string>
     <string name="start_game_button">Start game button</string>
+    <string name="start">Start</string>
+    <string name="page0">You wake up in the middle of the street by a lamp post, not remembering a thing about last night and feeling a bit unwell.</string>
+    <string name="page1">You decided to head towards the cool breeze to freshen up. Cool was a mistake, it is way too cold in here. You should probably keep moving to stay warm. There are two roads, one leads to the woods nearby and the other one seems to lead to the mountains afar.</string>
+    <string name="page2">You headed towards the warmth radiating from the savannah. Your nether regions start to burn because of the hot ground. You\'d better move forward fast before you get roasted.</string>
+    <string name="page3">Wait a minute, these aren\'t mountains at all. Your mind seems to be playing games with you. You decide to enter the pyramid despite the omnious feeling you have. Inside you find a dimly lit chamber with a half-full beer can.</string>
+    <string name="page4">You have entered the disgustingly pleasant woods. You encounter a yellow bear wearing a red shirt who is kind enough to share some of his honey with you.</string>
+    <string name="page5">Maybe consuming that was not such a great idea after all. You feel sick and start to lose consciousness. It was a mistake.</string>
+    <string name="page6">Hey, this place looks familiar, you have found home at last! Time to drink a glass of water and get in a horizontal position. Finally you start to feel better.</string>
+    <string name="choice0">You\'re sweating balls</string>
+    <string name="choice1">You\'re shivering uncontrollably</string>
+    <string name="choice2">Let\'s hike to the mountains</string>
+    <string name="choice3">You feel sick and go to the woods</string>
+    <string name="choice4">Run around aimlessly</string>
+    <string name="choice5">Head towards the shade</string>
+    <string name="choice6">It\'s important to stay hydrated. Gladly accept the drink</string>
+    <string name="choice7">Currently even thinking of beer is nauseating. Leave the eerie place</string>
+    <string name="choice8">Accept and eat the honey</string>
+    <string name="choice9">Lol nope, let\'s get out of here</string>
+    <string name="choice10">Fug.</string>
+    <string name="choice11">Start over</string>
+
+
 </resources>

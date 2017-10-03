@@ -45,6 +45,16 @@
             android:clickable="true"
             android:contentDescription="@string/button_to_give_name"
             android:layout_weight="2"/>
+
+        <Button
+            android:id="@+id/buttonstart"
+            style="@style/ViewTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundbutton"
+            android:clickable="true"
+            android:visibility="gone"
+            android:text="@string/start" />
     </LinearLayout>
 
 </LinearLayout>

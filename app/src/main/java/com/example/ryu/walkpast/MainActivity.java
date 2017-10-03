@@ -14,13 +14,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ryu.walkpast.Controller.StepCounter;
+import com.example.ryu.walkpast.Database.DatabaseAdapter;
 import com.example.ryu.walkpast.Database.DatabaseHelper;
 import com.example.ryu.walkpast.Fragments.ImageFragment;
 import com.example.ryu.walkpast.Fragments.UserInputFragment;
+import com.example.ryu.walkpast.Model.Choice;
 import com.example.ryu.walkpast.Model.Page;
 import com.example.ryu.walkpast.Model.Player;
 import com.example.ryu.walkpast.Model.Story;
@@ -43,7 +46,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     DatabaseHelper storyDatabase;
     private BtleService.LocalBinder serviceBinder;
     private MetaWearBoard mwBoard;
-    private Story mStory = new Story();
+    private Story mStory;
     private ImageView backgroundView;
     private TextView storyTextView;
     private TextView counterTextView;
@@ -54,10 +57,12 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     private Page mCurrentPage;
     private StepCounter mStepCounter;
     private ProgressBar mProgressBar;
+    private LinearLayout storyLayout;
     private int nextPage;
     private Accelerometer accelerometer;
     private AccelerometerBmi160 accBmi160;
     private AccelerometerBmi160.StepDetectorDataProducer stepDetector;
+    private DatabaseAdapter dbAdapter;
 
     //hide keyboard after pressing button
     public static void hideKeyboard(Activity activity) {
@@ -77,6 +82,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         // Bind the service when the activity is created
         getApplicationContext().bindService(new Intent(this, BtleService.class),
                 this, Context.BIND_AUTO_CREATE);
+        mStory = new Story(this);
         storyDatabase = new DatabaseHelper(this);
         backgroundView = findViewById(R.id.background);
         storyTextView = findViewById(R.id.storyTextView);
@@ -85,29 +91,33 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         choice1 = findViewById(R.id.choiceButton1);
         choice2 = findViewById(R.id.choiceButton2);
         mProgressBar = findViewById(R.id.stepProgressBar);
+        storyLayout = findViewById(R.id.storylayout);
         mPlayer = new Player();
+        dbAdapter = new DatabaseAdapter(this);
 
         loadPage(0); //first page of array
     }
 
     private void loadPage(int choice) {
         mStepCounter = new StepCounter(this);
-        mCurrentPage = mStory.getPage(choice);
+        mCurrentPage = dbAdapter.getPage(choice);
         int resID = getResources().getIdentifier(mCurrentPage.getBackground(), "drawable", getPackageName());
         backgroundView.setImageResource(resID);
         mProgressBar.setMax(mCurrentPage.getSteps()); //setting required steps for progress bar
         String pageText = mCurrentPage.getText();
         storyTextView.setText(pageText);
+        Choice c = dbAdapter.getChoice(mCurrentPage.getChoice1());
 
-        if (mCurrentPage.getChoice2() != null) {
+        if (mCurrentPage.getChoice2() != 0) {
             buttonsVisible();
-            choice1.setText(mCurrentPage.getChoice1().getText());
-            choice2.setText(mCurrentPage.getChoice2().getText());
+            choice1.setText(c.getText());
+            c = dbAdapter.getChoice(mCurrentPage.getChoice2());
+            choice2.setText(c.getText());
             mProgressBar.setProgress(0);
         } else {
-            choice1.setText(mCurrentPage.getChoice1().getText());
+            choice1.setText(c.getText());
             choice1.setVisibility(View.VISIBLE);
-            choice2.setVisibility(View.INVISIBLE);
+            choice2.setVisibility(View.GONE);
         }
 
         //onClickListener for each button and replace the story with new story
@@ -115,10 +125,12 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         choice1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextPage = mCurrentPage.getChoice1().getNextPage();//getting which next story
+                Choice c = dbAdapter.getChoice(mCurrentPage.getChoice1());
+                nextPage = c.getNextPage();//getting which next story
                 mStepCounter.startListening(MainActivity.this);
                 //accelerometer.acceleration().start();
                 //accelerometer.start();
+                counterTextView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.VISIBLE);
                 buttonsInVisible();
             }
@@ -127,10 +139,12 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         choice2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextPage = mCurrentPage.getChoice2().getNextPage();
+                Choice c = dbAdapter.getChoice(mCurrentPage.getChoice2());
+                nextPage = c.getNextPage();//getting which next story
                 mStepCounter.startListening(MainActivity.this);
                 //accelerometer.acceleration().start();
                 //accelerometer.start();
+                counterTextView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.VISIBLE);
                 buttonsInVisible();
             }
@@ -143,8 +157,8 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     }
 
     private void buttonsInVisible() {
-        choice1.setVisibility(View.INVISIBLE);
-        choice2.setVisibility(View.INVISIBLE);
+        choice1.setVisibility(View.GONE);
+        choice2.setVisibility(View.GONE);
     }
 
     @Override
@@ -162,7 +176,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     @Override
     public void onStepChanged(int steps) {
         mPlayer.setSteps(steps);
-        counterTextView.setText(getString(R.string.needed_steps) + String.valueOf(mCurrentPage.getSteps()));
+        counterTextView.setText(getString(R.string.needed_steps) + String.valueOf(mCurrentPage.getSteps() - steps));
         totalTextView.setText(getString(R.string.total_steps) + String.valueOf(mPlayer.getTotalSteps()));
         mProgressBar.setProgress(steps);
 
@@ -172,19 +186,26 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             mPlayer.setSteps(0);
             loadPage(nextPage);// and replace with old story
             mProgressBar.setVisibility(View.INVISIBLE);
+            counterTextView.setVisibility(View.GONE);
         }
     }
 
     //notice change in userinputfragment and update imagefragment
     @Override
-    public void onFragmentInteraction(String userContent) {
+    public void onFragmentInteraction(String userContent, Boolean story) {
         UserInputFragment userInputFragment = (UserInputFragment) getFragmentManager().findFragmentById(R.id.fragmentinput);
         ImageFragment imageFragment = (ImageFragment) getFragmentManager().findFragmentById(R.id.fragmentimg);
         hideKeyboard(this);
         userInputFragment.userInput.setVisibility(View.GONE);
         userInputFragment.update.setVisibility(View.GONE);
-        userInputFragment.welcomemsg.setText("Hello " + userContent + ". Insert welcome message and instructions here.");
+        userInputFragment.welcomemsg.setText("Hello " + userContent + ". This is an interactive story that requires " +
+                "actual walking around in real life. Are you ready to take a few steps to reach your destination?");
         imageFragment.updateImageView(userContent, this);
+        mPlayer.setAvatar(userContent);
+        if (story) {
+            storyLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

@@ -10,9 +10,9 @@ public class Choice {
     private String choiceText; //text that will show on the button
     private int nextPage; //store the next page number
 
-    Choice(String text, int page) {
+    public Choice(String text, int page) {
         choiceText = text;
-        nextPage = page;
+        nextPage = page - 1;
     }
 
     public String getText() {

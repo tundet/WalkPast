@@ -3,19 +3,14 @@ package com.example.ryu.walkpast.Fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ryu.walkpast.MainActivity;
 import com.example.ryu.walkpast.R;
 
 /**
@@ -30,6 +25,7 @@ public class UserInputFragment extends Fragment {
     public Button update;
     public Button start;
     private String userData;
+    private Boolean showStory = false;
     //private String gender;
     //private Spinner spinner;
 
@@ -83,27 +79,30 @@ public class UserInputFragment extends Fragment {
                     return;
                 }
                 userData = userInput.getText().toString();
-                onButtonPressed(userData);
-                //start.setVisibility(View.VISIBLE);
+                onButtonPressed(userData, showStory);
+                start.setVisibility(View.VISIBLE);
             }
         });
 
-        /*
-        start = view.findViewById(R.id.buttonok);
+
+        start = view.findViewById(R.id.buttonstart);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getView().setVisibility(View.GONE);
-                // TODO: hide and show fragment in MainActivity
+                showStory = true;
+                if (mListener != null) {
+                    mListener.onFragmentInteraction(userData, showStory);
+                }
             }
         });
-        */
+
         return view;
     }
 
-    public void onButtonPressed(String userContent) {
+    public void onButtonPressed(String userContent, Boolean story) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(userContent);
+            mListener.onFragmentInteraction(userContent, story);
         }
     }
 
@@ -125,7 +124,7 @@ public class UserInputFragment extends Fragment {
 
     //tell that button has been pressed
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(String userContent);
+        void onFragmentInteraction(String userContent, Boolean story);
     }
 
 }

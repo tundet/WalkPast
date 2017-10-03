@@ -27,6 +27,7 @@
         tools:layout="@layout/fragment_userinput" />
 
     <LinearLayout
+        android:id="@+id/storylayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragmentinput"
@@ -34,7 +35,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="1dp"
         android:background="@drawable/roundblack"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/storyTextView"
@@ -45,15 +47,6 @@
             android:contentDescription="@string/game_story" />
 
         <Button
-            android:id="@+id/choiceButton2"
-            style="@style/ViewTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/roundbutton"
-            android:clickable="true"
-            android:contentDescription="@string/choice_1" />
-
-        <Button
             android:id="@+id/choiceButton1"
             style="@style/ViewTheme"
             android:layout_width="match_parent"
@@ -61,6 +54,15 @@
             android:background="@drawable/roundbutton"
             android:clickable="true"
             android:contentDescription="@string/choice_2" />
+
+        <Button
+            android:id="@+id/choiceButton2"
+            style="@style/ViewTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundbutton"
+            android:clickable="true"
+            android:contentDescription="@string/choice_1" />
 
         <TextView
             android:id="@+id/counterTextView"
@@ -70,7 +72,8 @@
             android:layout_marginBottom="39dp"
             android:clickable="false"
             android:contentDescription="@string/steps_taken"
-            android:text="@string/_0" />
+            android:text="@string/_0"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/totalTextView"
@@ -80,7 +83,8 @@
             android:layout_marginBottom="39dp"
             android:clickable="false"
             android:contentDescription="@string/total_steps"
-            android:text="@string/_0" />
+            android:text="@string/_0"
+            android:visibility="gone" />
     </LinearLayout>
 
 

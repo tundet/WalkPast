@@ -12,28 +12,34 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
-        super(context, Constants.DATABASE_NAME, null, Constants.DB_VERSION);
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        super(context, Constants.DB_NAME, null, Constants.DB_VERSION);
     }
 
-    //create table
+    /*
+    CREATE TABLE
+     */
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
         try
         {
-            sqLiteDatabase.execSQL(Constants.CREATE_TB);
+            db.execSQL(Constants.CREATE_TB1);
+            db.execSQL(Constants.CREATE_TB2);
         }catch (SQLException e)
         {
             e.printStackTrace();
         }
     }
 
-    //upgrade table
+    /*
+        UPGRADE TABLE
+         */
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         try {
-            sqLiteDatabase.execSQL(Constants.DROP_TB);
-            sqLiteDatabase.execSQL(Constants.CREATE_TB);
+            db.execSQL(Constants.DROP_TB1);
+            db.execSQL(Constants.DROP_TB2);
+            db.execSQL(Constants.CREATE_TB1);
+            db.execSQL(Constants.CREATE_TB2);
 
         }catch (SQLException e)
         {

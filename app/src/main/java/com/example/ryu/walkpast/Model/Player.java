@@ -25,4 +25,12 @@ public class Player {
     public int getSteps() {
         return steps;
     }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
 }

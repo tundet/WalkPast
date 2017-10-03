@@ -8,12 +8,12 @@ package com.example.ryu.walkpast.Model;
 public class Page {
 
     private String story;
-    private Choice mChoice1;
-    private Choice mChoice2;
+    private int mChoice1;
+    private int mChoice2;
     private String bgImage;
     private int reqSteps; //required steps to walk
 
-    Page(String text, Choice choice1, Choice choice2, String bg, int steps) {
+    public Page(String text, int choice1, int choice2, String bg, int steps) {
         bgImage = bg;
         story = text;
         mChoice1 = choice1;
@@ -21,7 +21,7 @@ public class Page {
         reqSteps = steps;
     }
 
-    Page(String text, Choice choice1, String bg, int steps) {
+    Page(String text, int choice1, String bg, int steps) {
         bgImage = bg;
         story = text;
         mChoice1 = choice1;
@@ -32,11 +32,11 @@ public class Page {
         return story;
     }
 
-    public Choice getChoice1() {
+    public int getChoice1() {
         return mChoice1;
     }
 
-    public Choice getChoice2() {
+    public int getChoice2() {
         return mChoice2;
     }
 
@@ -44,5 +44,9 @@ public class Page {
 
     public String getBackground() {
         return bgImage;
+    }
+
+    public String getStory() {
+        return story;
     }
 }

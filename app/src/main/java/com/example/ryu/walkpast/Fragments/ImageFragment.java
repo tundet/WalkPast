@@ -40,7 +40,7 @@ public class ImageFragment extends Fragment {
                 .load(avatarURL)
                 //.error(R.drawable.ic_error)
                 .placeholder(R.drawable.progress_animation)
-                .fit()
+                .resize(400, 503)
                 .into(updateImage);
     }
 }
