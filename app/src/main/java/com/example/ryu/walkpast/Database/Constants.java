@@ -1,13 +1,15 @@
 package com.example.ryu.walkpast.Database;
 
 /**
+ * CONSTANTS FOR DATABASE HELPER
+ * holds the SQL statements and names of tables, columns etc.
  * Created by RYU on 9/29/2017.
  */
 
-public class Constants {
+class Constants {
     /*
-  COLUMNS
-   */
+     COLUMNS
+     */
     static final String ROW_ID = "id";
     static final String STORY = "story";
     static final String CHOICE1 = "choice1";
@@ -17,14 +19,14 @@ public class Constants {
     static final String PAGE = "page";
     static final String TEXT = "text";
     /*
-    DB PROPERTIES
+     DB PROPERTIES
      */
     static final String DB_NAME = "StoriesDatabase";
     static final String TB1_NAME = "Pages";
     static final String TB2_NAME = "Choices";
     static final int DB_VERSION = 3;
     /*
-    TABLE CREATION STATEMENT
+     TABLE CREATION STATEMENT
      */
     static final String CREATE_TB1 = "CREATE TABLE Pages(id INTEGER PRIMARY KEY AUTOINCREMENT,"
             + "story TEXT NOT NULL, choice1 INTEGER NOT NULL, choice2 INTEGER NULL, background TEXT NOT NULL,"
@@ -33,7 +35,7 @@ public class Constants {
     static final String CREATE_TB2 = "CREATE TABLE Choices(id INTEGER PRIMARY KEY AUTOINCREMENT,"
             + "text TEXT NOT NULL, page INTEGER NOT NULL);";
     /*
-    TABLE DELETION STMT
+     TABLE DELETION STATEMENT
      */
     static final String DROP_TB1 = "DROP TABLE IF EXISTS " + TB1_NAME;
     static final String DROP_TB2 = "DROP TABLE IF EXISTS " + TB2_NAME;

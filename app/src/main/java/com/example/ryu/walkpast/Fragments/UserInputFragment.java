@@ -1,7 +1,7 @@
 package com.example.ryu.walkpast.Fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.ryu.walkpast.R;
 
 /**
+ * FRAGMENT FOR ASKING USER'S NAME AND HAS WELCOME MESSAGE
+ * user's input is given to Image Fragment to update the avatar.
  * Created by RYU on 9/28/2017.
  */
 
@@ -25,13 +27,15 @@ public class UserInputFragment extends Fragment {
     public Button update;
     public Button start;
     private String userData;
-    private Boolean showStory = false;
     //private String gender;
     //private Spinner spinner;
 
     public UserInputFragment() {
     }
 
+    /*
+     SETUP VIEW
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_userinput, container, false);
@@ -39,7 +43,7 @@ public class UserInputFragment extends Fragment {
         userInput = view.findViewById(R.id.user_input);
 
         /*
-        //spinner in case of choosing gender
+        //Spinner in case of choosing gender
         spinner = view.findViewById(R.id.spinner);
         String[] items = new String[]{"female", "male", "all"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items);
@@ -79,20 +83,19 @@ public class UserInputFragment extends Fragment {
                     return;
                 }
                 userData = userInput.getText().toString();
-                onButtonPressed(userData, showStory);
+                onButtonPressed(userData, false);
                 start.setVisibility(View.VISIBLE);
             }
         });
 
-
+        //button for starting game
         start = view.findViewById(R.id.buttonstart);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getView().setVisibility(View.GONE);
-                showStory = true;
                 if (mListener != null) {
-                    mListener.onFragmentInteraction(userData, showStory);
+                    mListener.onFragmentInteraction(userData, true);
                 }
             }
         });
@@ -100,29 +103,42 @@ public class UserInputFragment extends Fragment {
         return view;
     }
 
+    /*
+     TELLING LISTENER THAT A BUTTON HAS BEEN PRESSED
+     If button story is true the application will know that the second button has been pressed and
+     the story can be shown.
+     */
     public void onButtonPressed(String userContent, Boolean story) {
         if (mListener != null) {
             mListener.onFragmentInteraction(userContent, story);
         }
     }
 
+    /*
+     START LISTENER
+     */
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnFragmentInteractionListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
+            throw new ClassCastException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 
+    /*
+     STOP LISTENING
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
-    //tell that button has been pressed
+    /*
+     INFORM MAIN ACTIVITY THAT BUTTON HAS BEEN PRESSED
+     */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String userContent, Boolean story);
     }

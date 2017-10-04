@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
+ * SQLITE DATABASE TO STORE THE STORY
+ * creates a new database or updates to new version.
  * Created by RYU on 9/29/2017.
  */
 
@@ -16,23 +18,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /*
-    CREATE TABLE
+     CREATE TABLE
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try
-        {
+        try {
+            //TODO: Once done with testing stop dropping table each time
+            db.execSQL(Constants.DROP_TB1);
+            db.execSQL(Constants.DROP_TB2);
             db.execSQL(Constants.CREATE_TB1);
             db.execSQL(Constants.CREATE_TB2);
-        }catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     /*
-        UPGRADE TABLE
-         */
+     UPGRADE TABLE
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         try {
@@ -41,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(Constants.CREATE_TB1);
             db.execSQL(Constants.CREATE_TB2);
 
-        }catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

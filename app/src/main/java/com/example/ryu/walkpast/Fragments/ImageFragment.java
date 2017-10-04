@@ -13,18 +13,24 @@ import com.example.ryu.walkpast.Service.AvatarAPI;
 import com.squareup.picasso.Picasso;
 
 /**
+ * FRAGMENT TO SHOW USER AVATAR IN IMAGE VIEW
+ * gets username from User Input Fragment and fetches the image from Avatar API using Picasso.
+ * Picasso handles the image loading asynchronously.
  * Created by RYU on 9/28/2017.
  */
 
 public class ImageFragment extends Fragment {
 
-    private ImageView updateImage;
+    public ImageView updateImage;
     private AvatarAPI avatarAPI = new AvatarAPI();
     private String avatarURL;
 
     public ImageFragment() {
     }
 
+    /*
+     SETUP VIEW
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_image, container, false);
@@ -32,13 +38,15 @@ public class ImageFragment extends Fragment {
         return view;
     }
 
-    //insert fetched image to imageview
+    /*
+     INSERT AVATAR INTO IMAGE VIEW
+     */
     public void updateImageView(String newText, Context context) {
-        avatarURL = avatarAPI.generateAvatar(newText, "all", "256x");
+        //avatarURL = avatarAPI.generateAvatar(newText, "all", "256x");
         //Picasso.with(context).load(avatarURL).into(updateImage);
         Picasso.with(context.getApplicationContext())
-                .load(avatarURL)
-                //.error(R.drawable.ic_error)
+                //API currently unavailable so image is set to Spondebob Squarepants
+                .load("https://vignette2.wikia.nocookie.net/spongebob/images/6/6c/OldSpongeBobStock5-25-13.png")
                 .placeholder(R.drawable.progress_animation)
                 .resize(400, 503)
                 .into(updateImage);

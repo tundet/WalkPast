@@ -12,6 +12,8 @@ import com.example.ryu.walkpast.Model.Page;
 import java.util.ArrayList;
 
 /**
+ * HANDLES THE CONTENT OF DATABASE
+ * saves and gets pages and choices.
  * Created by RYU on 10/3/2017.
  */
 
@@ -24,7 +26,7 @@ public class DatabaseAdapter {
     private ArrayList<Page> pages;
 
     /*
-    1. INITIALIZE DB HELPER AND PASS IT A CONTEXT
+     1. INITIALIZE DB HELPER AND PASS IT A CONTEXT
      */
     public DatabaseAdapter(Context context) {
         this.context = context;
@@ -34,7 +36,7 @@ public class DatabaseAdapter {
     }
 
     /*
-    SAVE PAGE TO DB
+     SAVE PAGE TO DB
      */
     public boolean savePage(Page page) {
         try {
@@ -58,7 +60,7 @@ public class DatabaseAdapter {
     }
 
     /*
-    SAVE CHOICE TO DB
+     SAVE CHOICE TO DB
      */
     public boolean saveChoice(Choice choice) {
         try {
@@ -82,7 +84,7 @@ public class DatabaseAdapter {
      1. RETRIEVE PAGES FROM DB AND POPULATE ARRAYLIST
      2. RETURN THE LIST
      */
-    public ArrayList<Page> retrievePages() {
+    private ArrayList<Page> retrievePages() {
         ArrayList<Page> pages = new ArrayList<>();
         try {
             db = helper.getWritableDatabase();
@@ -111,7 +113,7 @@ public class DatabaseAdapter {
      1. RETRIEVE CHOICES FROM DB AND POPULATE ARRAYLIST
      2. RETURN THE LIST
      */
-    public ArrayList<Choice> retrieveChoices() {
+    private ArrayList<Choice> retrieveChoices() {
         ArrayList<Choice> choices = new ArrayList<>();
         try {
             db = helper.getWritableDatabase();
