@@ -1,13 +1,11 @@
-package com.example.ryu.walkpast.Controller;
+package com.example.ryu.walkpast.controller;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -39,7 +37,6 @@ public class StepCounter implements SensorEventListener {
      */
     public StepCounter(Context context) {
         mSensorManager = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
-        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mStepSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
     }
 

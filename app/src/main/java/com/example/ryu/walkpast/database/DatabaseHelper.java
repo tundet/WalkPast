@@ -1,4 +1,4 @@
-package com.example.ryu.walkpast.Database;
+package com.example.ryu.walkpast.database;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -23,9 +23,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            //TODO: Once done with testing stop dropping table each time
-            db.execSQL(Constants.DROP_TB1);
-            db.execSQL(Constants.DROP_TB2);
             db.execSQL(Constants.CREATE_TB1);
             db.execSQL(Constants.CREATE_TB2);
         } catch (SQLException e) {

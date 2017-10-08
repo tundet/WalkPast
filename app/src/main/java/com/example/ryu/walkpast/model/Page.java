@@ -1,4 +1,4 @@
-package com.example.ryu.walkpast.Model;
+package com.example.ryu.walkpast.model;
 
 /**
  * PAGE

@@ -1,8 +1,11 @@
-package com.example.ryu.walkpast.Fragments;
+package com.example.ryu.walkpast.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +33,6 @@ public class UserInputFragment extends Fragment {
     public Button start;
     private String userData;
     private String metaAddr;
-    private TextView askMetaWear;
     private TextView explainMetaWear;
 
     public UserInputFragment() {
@@ -46,6 +48,30 @@ public class UserInputFragment extends Fragment {
         editUserName = view.findViewById(R.id.user_name);
         explainMetaWear = view.findViewById(R.id.whatismac);
         editMetaWear = view.findViewById(R.id.user_metawear);
+        //fiöters for MAC address pattern
+        editMetaWear.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        editMetaWear.setSingleLine();
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = new InputFilter() {
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                if (end > start) {
+                    String destTxt = dest.toString();
+                    String resultingTxt = destTxt.substring(0, dstart) + source.subSequence(start, end) + destTxt.substring(dend);
+                    if (!resultingTxt.matches("([0-9a-fA-F][0-9a-fA-F]:){0,5}[0-9a-fA-F]")) {
+                        if (resultingTxt.matches("([0-9a-fA-F][0-9a-fA-F]:){0,4}[0-9a-fA-F][0-9a-fA-F]")) {
+                            return source.subSequence(start, end) + ":";
+                        } else if (!resultingTxt.matches("([0-9a-fA-F][0-9a-fA-F]:){0,5}[0-9a-fA-F][0-9a-fA-F]")) {
+                            return "";
+                        }
+                    }
+                }
+                return null;
+            }
+        };
+        editMetaWear.setFilters(filters);
 
 
         //button for name input
@@ -54,11 +80,11 @@ public class UserInputFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (editUserName.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "User input value must be filled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.input_must_be_filled, Toast.LENGTH_LONG).show();
                     return;
                 }
                 userData = editUserName.getText().toString();
-                welcomemsg.setText("What is your MetaWear MAC address?");
+                welcomemsg.setText(R.string.what_is_mac_address);
                 editUserName.setVisibility(View.GONE);
                 updateName.setVisibility(View.GONE);
                 editMetaWear.setVisibility(View.VISIBLE);
@@ -72,14 +98,12 @@ public class UserInputFragment extends Fragment {
         updateMetaWear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                metaAddr = editMetaWear.getText().toString();
                 onButtonPressed(userData, metaAddr, false);
+                metaAddr = editMetaWear.getText().toString();
                 editMetaWear.setVisibility(View.GONE);
                 updateMetaWear.setVisibility(View.GONE);
-                //TODO: put strings in resource
-                welcomemsg.setText(getString(R.string.hello) + " " + userData + ". This is an interactive story that requires " +
-                        "actual walking around in real life. Are you ready to take a few steps to reach your destination? Take your " +
-                        "MetaWear with you to see your character move around. Let's go!");
+                explainMetaWear.setVisibility(View.GONE);
+                welcomemsg.setText(getString(R.string.hello) + " " + userData + getString(R.string.instruction));
                 start.setVisibility(View.VISIBLE);
             }
         });
@@ -89,9 +113,9 @@ public class UserInputFragment extends Fragment {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getView().setVisibility(View.GONE);
-                if (mListener != null) {
-                    mListener.onFragmentInteraction(userData, metaAddr, true);
+                if (getView() != null) {
+                    getView().setVisibility(View.GONE);
+                    onButtonPressed(userData, metaAddr, true);
                 }
             }
         });

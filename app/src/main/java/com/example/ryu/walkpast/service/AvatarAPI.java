@@ -1,4 +1,4 @@
-package com.example.ryu.walkpast.Service;
+package com.example.ryu.walkpast.service;
 
 import android.util.Log;
 

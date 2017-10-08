@@ -1,4 +1,4 @@
-package com.example.ryu.walkpast.Database;
+package com.example.ryu.walkpast.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.ryu.walkpast.Model.Choice;
-import com.example.ryu.walkpast.Model.Page;
+import com.example.ryu.walkpast.model.Choice;
+import com.example.ryu.walkpast.model.Page;
 
 import java.util.ArrayList;
 
@@ -19,17 +19,15 @@ import java.util.ArrayList;
 
 public class DatabaseAdapter {
 
-    private Context context;
     private SQLiteDatabase db;
     private DatabaseHelper helper;
-    private ArrayList<Choice> choices;
-    private ArrayList<Page> pages;
+    public ArrayList<Choice> choices;
+    public ArrayList<Page> pages;
 
     /*
      1. INITIALIZE DB HELPER AND PASS IT A CONTEXT
      */
     public DatabaseAdapter(Context context) {
-        this.context = context;
         helper = new DatabaseHelper(context);
         choices = retrieveChoices();
         pages = retrievePages();
@@ -84,7 +82,7 @@ public class DatabaseAdapter {
      1. RETRIEVE PAGES FROM DB AND POPULATE ARRAYLIST
      2. RETURN THE LIST
      */
-    private ArrayList<Page> retrievePages() {
+    public ArrayList<Page> retrievePages() {
         ArrayList<Page> pages = new ArrayList<>();
         try {
             db = helper.getWritableDatabase();
@@ -113,7 +111,7 @@ public class DatabaseAdapter {
      1. RETRIEVE CHOICES FROM DB AND POPULATE ARRAYLIST
      2. RETURN THE LIST
      */
-    private ArrayList<Choice> retrieveChoices() {
+    public ArrayList<Choice> retrieveChoices() {
         ArrayList<Choice> choices = new ArrayList<>();
         try {
             db = helper.getWritableDatabase();

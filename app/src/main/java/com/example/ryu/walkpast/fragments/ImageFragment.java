@@ -1,5 +1,5 @@
-package com.example.ryu.walkpast.Fragments;
-//todo package in lowercase
+package com.example.ryu.walkpast.fragments;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.ryu.walkpast.R;
-import com.example.ryu.walkpast.Service.AvatarAPI;
+import com.example.ryu.walkpast.service.AvatarAPI;
 import com.squareup.picasso.Picasso;
 
 /**

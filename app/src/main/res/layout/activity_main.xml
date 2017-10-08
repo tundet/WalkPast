@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/fragmentinput"
-        android:name="com.example.ryu.walkpast.Fragments.UserInputFragment"
+        android:name="com.example.ryu.walkpast.fragments.UserInputFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -91,7 +91,7 @@
 
     <fragment
         android:id="@+id/fragmentimg"
-        android:name="com.example.ryu.walkpast.Fragments.ImageFragment"
+        android:name="com.example.ryu.walkpast.fragments.ImageFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/stepProgressBar"

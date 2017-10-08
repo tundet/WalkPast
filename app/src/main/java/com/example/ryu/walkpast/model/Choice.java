@@ -1,4 +1,4 @@
-package com.example.ryu.walkpast.Model;
+package com.example.ryu.walkpast.model;
 
 /**
  * CHOICE
@@ -13,7 +13,7 @@ public class Choice {
 
     public Choice(String text, int page) {
         choiceText = text;
-        nextPage = page + 1;
+        nextPage = page;
     }
 
     public String getText() {

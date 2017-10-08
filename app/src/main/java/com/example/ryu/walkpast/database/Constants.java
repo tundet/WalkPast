@@ -1,4 +1,4 @@
-package com.example.ryu.walkpast.Database;
+package com.example.ryu.walkpast.database;
 
 /**
  * CONSTANTS FOR DATABASE HELPER
@@ -24,7 +24,7 @@ class Constants {
     static final String DB_NAME = "StoriesDatabase";
     static final String TB1_NAME = "Pages";
     static final String TB2_NAME = "Choices";
-    static final int DB_VERSION = 3;
+    static final int DB_VERSION = 4;
     /*
      TABLE CREATION STATEMENT
      */

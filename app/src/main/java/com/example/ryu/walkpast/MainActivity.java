@@ -17,16 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.ryu.walkpast.Controller.StepCounter;
-import com.example.ryu.walkpast.Database.DatabaseAdapter;
-import com.example.ryu.walkpast.Database.DatabaseHelper;
-import com.example.ryu.walkpast.Fragments.ImageFragment;
-import com.example.ryu.walkpast.Fragments.UserInputFragment;
-import com.example.ryu.walkpast.Model.Choice;
-import com.example.ryu.walkpast.Model.Page;
-import com.example.ryu.walkpast.Model.Player;
-import com.example.ryu.walkpast.Model.Story;
+import com.example.ryu.walkpast.controller.StepCounter;
+import com.example.ryu.walkpast.database.DatabaseAdapter;
+import com.example.ryu.walkpast.database.DatabaseHelper;
+import com.example.ryu.walkpast.fragments.ImageFragment;
+import com.example.ryu.walkpast.fragments.UserInputFragment;
+import com.example.ryu.walkpast.model.Choice;
+import com.example.ryu.walkpast.model.Page;
+import com.example.ryu.walkpast.model.Player;
+import com.example.ryu.walkpast.model.Story;
 import com.mbientlab.metawear.Data;
 import com.mbientlab.metawear.MetaWearBoard;
 import com.mbientlab.metawear.Route;
@@ -37,19 +38,18 @@ import com.mbientlab.metawear.builder.RouteComponent;
 import com.mbientlab.metawear.data.Acceleration;
 import com.mbientlab.metawear.module.Accelerometer;
 
+import java.util.Objects;
+
 import bolts.Continuation;
 import bolts.Task;
 
 public class MainActivity extends Activity implements StepCounter.Listener, UserInputFragment.OnFragmentInteractionListener, ServiceConnection {
-
-    //TODO: persistence
+    public static Player mPlayer;
     //TODO: GPS to recognize speed or something
-
     private BtleService.LocalBinder serviceBinder;
     private MetaWearBoard mwBoard;
     private ImageView backgroundView;
     private TextView storyTextView, counterTextView, totalTextView;
-    private Player mPlayer;
     private Button choice1, choice2;
     private Page mCurrentPage;
     private StepCounter mStepCounter;
@@ -57,11 +57,10 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     private LinearLayout storyLayout;
     private int nextPage;
     private Accelerometer accelerometer;
-    private DatabaseAdapter dbAdapter;
-    private UserInputFragment userInputFragment;
     private ImageFragment imageFragment;
     private Boolean metaWear = false;
-    private String metaAddr;
+    private UserInputFragment userInputFragment;
+    private DatabaseAdapter dbAdapter;
 
     /*
      SETUP ACTIVITY
@@ -78,9 +77,20 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
                 this, Context.BIND_AUTO_CREATE);
 
         //setup database, insert story in it and create adapter
+        this.deleteDatabase("StoriesDatabase");
         new DatabaseHelper(this);
-        new Story(this);
         dbAdapter = new DatabaseAdapter(this);
+        new Story(this);
+        for (Page page : Story.getPages()) {
+            Log.i("page", "added");
+            dbAdapter.savePage(page);
+        }
+        for (Choice choice : Story.getChoices()) {
+            Log.i("choice", "added");
+            dbAdapter.saveChoice(choice);
+        }
+        dbAdapter.pages = dbAdapter.retrievePages();
+        dbAdapter.choices = dbAdapter.retrieveChoices();
 
         //get views, buttons and progressbar
         backgroundView = findViewById(R.id.background);
@@ -92,15 +102,13 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         mProgressBar = findViewById(R.id.stepProgressBar);
 
         //create player to save steps counted
-        mPlayer = new Player();
+        mPlayer = new Player(this);
 
-        //get fragments
-        //TODO maybe preference to remember the user name (she can put a new one; but makes faster if she wants to reuse the same one)
-        userInputFragment = (UserInputFragment) getFragmentManager().findFragmentById(R.id.fragmentinput);
+        //get fragments and update input texts to player prefs
         imageFragment = (ImageFragment) getFragmentManager().findFragmentById(R.id.fragmentimg);
-
-        //load first page of array onto view
-        loadPage(0);
+        userInputFragment = (UserInputFragment) getFragmentManager().findFragmentById(R.id.fragmentinput);
+        userInputFragment.editUserName.setText(mPlayer.getName());
+        userInputFragment.editMetaWear.setText(mPlayer.getAddress());
     }
 
     /*
@@ -127,7 +135,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             choice1.setText(c.getText());
             c = dbAdapter.getChoice(mCurrentPage.getChoice2());
             choice2.setText(c.getText());
-            mProgressBar.setProgress(1);
+            mProgressBar.setProgress(0);
         } else {
             //TODO: show total steps at end of game
             choice1.setText(c.getText());
@@ -140,11 +148,16 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         choice1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Choice c = dbAdapter.getChoice(mCurrentPage.getChoice1());
-                nextPage = c.getNextPage();//getting which next story
-                mStepCounter.startListening(MainActivity.this);
-                startAccelerator();
-                buttonsInVisible();
+                if (Objects.equals(choice1.getText(), "Start over")) {
+                    recreate();
+                } else {
+                    Log.i("choice", choice1.getText().toString());
+                    Choice c = dbAdapter.getChoice(mCurrentPage.getChoice1());
+                    nextPage = c.getNextPage();//getting which next story
+                    mStepCounter.startListening(MainActivity.this);
+                    startAccelerator();
+                    buttonsInVisible();
+                }
             }
         });
         choice2.setOnClickListener(new View.OnClickListener() {
@@ -204,20 +217,23 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     }
 
     /*
-     NOTICE CHANGE IN USER INPUT FRAGMENT AND GIVE THE CONTENT TO IMAGE FRAGMENTs
+     NOTICE CHANGE IN USER INPUT FRAGMENT AND GIVE THE CONTENT TO IMAGE FRAGMENT
      */
     @Override
     public void onFragmentInteraction(String userContent, String metaAddress, Boolean story) {
         hideKeyboard(this);
+        mPlayer.setName(userContent);
+        userInputFragment.editUserName.setText(mPlayer.getName());
         imageFragment.updateImageView(userContent, this);
-        metaAddr = metaAddress;
+        mPlayer.setAddress(metaAddress);
 
         //if story is set to true in user input fragment, the story can be shown on main layout
         if (story) {
             storyLayout.setVisibility(View.VISIBLE);
             //insert MetaWear MAC Address here
-            //todo maybe have preference where user can enter his metawear mac address
-            retrieveBoard(metaAddr);
+            retrieveBoard(mPlayer.getAddress());
+            //load first page of array onto view
+            loadPage(0);
         }
     }
 
@@ -300,9 +316,12 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             public Void then(Task<Route> task) throws Exception {
                 if (task.isFaulted()) {
                     Log.w("accelerator", "Failed to configure", task.getError());
+                    //TODO: toast now working?
+                    Toast.makeText(getBaseContext(), "Failed to connect to MetaWear", Toast.LENGTH_LONG).show();
                 } else {
                     Log.i("accelerator", "Configured");
                     metaWear = true; //confirm that board exists so that it can be referred to later
+                    Toast.makeText(getBaseContext(), "Connected to MetaWear", Toast.LENGTH_LONG).show();
                 }
 
                 return null;

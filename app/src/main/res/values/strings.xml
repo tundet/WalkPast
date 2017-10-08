@@ -39,9 +39,12 @@
     <string name="hello">Hello</string>
     <string name="asking_user">Asking for information and displaying welcome message</string>
     <string name="explain_metawear">Explaining MAC address</string>
-    <string name="where_to_get_address">(Download the official MetaWear app from Play Store and connect to your device to see the address. Example: CA:CF:B2:0E:44:36)</string>
+    <string name="where_to_get_address">Download the official MetaWear app from Play Store and connect to your device to see the address. (Only letters A-F and numbers are accepted, example: CA:CF:B2:0E:44:36)</string>
     <string name="input_for_address">User input for MAC address</string>
     <string name="confirm_button">Button to give MAC</string>
+    <string name="instruction">. This is an interactive story that requires actual walking around in real life. Are you ready to take a few steps to reach your destination? Take your MetaWear with you to see your character move around. Let\'s go!</string>
+    <string name="input_must_be_filled">User input value must be filled</string>
+    <string name="what_is_mac_address">What is your MetaWear MAC address?</string>
 
 
 </resources>
