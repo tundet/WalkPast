@@ -11,9 +11,20 @@
         android:layout_margin="@dimen/smalldp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/asking_user_s_name"
+        android:contentDescription="@string/asking_user"
         android:clickable="false"
         android:text="@string/who_are_you" />
+
+    <TextView
+        style="@style/ViewTheme"
+        android:id="@+id/whatismac"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:contentDescription="@string/explain_metawear"
+        android:clickable="false"
+        android:text="@string/where_to_get_address"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -23,13 +34,27 @@
 
         <EditText
             style="@style/ViewTheme"
-            android:id="@+id/user_input"
+            android:id="@+id/user_name"
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:contentDescription="@string/user_input_for_their_name"
             android:clickable="true"
             android:inputType="text">
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            style="@style/ViewTheme"
+            android:id="@+id/user_metawear"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:contentDescription="@string/input_for_address"
+            android:clickable="true"
+            android:inputType="text"
+            android:visibility="gone">
 
             <requestFocus />
         </EditText>
@@ -45,6 +70,19 @@
             android:clickable="true"
             android:contentDescription="@string/button_to_give_name"
             android:layout_weight="2"/>
+
+        <Button
+            style="@style/ViewTheme"
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:text="@string/update_button"
+            android:background="@drawable/roundbutton"
+            android:clickable="true"
+            android:contentDescription="@string/confirm_button"
+            android:visibility="gone"
+            android:layout_weight="2" />
 
         <Button
             android:id="@+id/buttonstart"

@@ -1,5 +1,5 @@
 package com.example.ryu.walkpast.Fragments;
-
+//todo package in lowercase
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;

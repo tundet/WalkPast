@@ -42,6 +42,9 @@ import bolts.Task;
 
 public class MainActivity extends Activity implements StepCounter.Listener, UserInputFragment.OnFragmentInteractionListener, ServiceConnection {
 
+    //TODO: persistence
+    //TODO: GPS to recognize speed or something
+
     private BtleService.LocalBinder serviceBinder;
     private MetaWearBoard mwBoard;
     private ImageView backgroundView;
@@ -58,6 +61,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     private UserInputFragment userInputFragment;
     private ImageFragment imageFragment;
     private Boolean metaWear = false;
+    private String metaAddr;
 
     /*
      SETUP ACTIVITY
@@ -91,6 +95,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         mPlayer = new Player();
 
         //get fragments
+        //TODO maybe preference to remember the user name (she can put a new one; but makes faster if she wants to reuse the same one)
         userInputFragment = (UserInputFragment) getFragmentManager().findFragmentById(R.id.fragmentinput);
         imageFragment = (ImageFragment) getFragmentManager().findFragmentById(R.id.fragmentimg);
 
@@ -122,7 +127,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             choice1.setText(c.getText());
             c = dbAdapter.getChoice(mCurrentPage.getChoice2());
             choice2.setText(c.getText());
-            mProgressBar.setProgress(0);
+            mProgressBar.setProgress(1);
         } else {
             //TODO: show total steps at end of game
             choice1.setText(c.getText());
@@ -168,6 +173,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     private void buttonsInVisible() {
         choice1.setVisibility(View.GONE);
         choice2.setVisibility(View.GONE);
+        counterTextView.setText(getString(R.string.needed_steps) + String.valueOf(mCurrentPage.getSteps()));
         counterTextView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -178,6 +184,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     @Override
     public void onStepChanged(int steps) {
         //update player's, views' and progressbar's steps
+        //todo maybe find a way to detect the frist step (actually updates only after 3-5 steps and feels confusing)
         mPlayer.setSteps(steps);
         counterTextView.setText(getString(R.string.needed_steps) + String.valueOf(mCurrentPage.getSteps() - steps));
         totalTextView.setText(getString(R.string.total_steps) + String.valueOf(mPlayer.getTotalSteps() + steps));
@@ -197,21 +204,20 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     }
 
     /*
-     NOTICE CHANGE IN USER INPUT FRAGMENT AND GIVE THE CONTENT TO IMAGE FRAGMENT
+     NOTICE CHANGE IN USER INPUT FRAGMENT AND GIVE THE CONTENT TO IMAGE FRAGMENTs
      */
     @Override
-    public void onFragmentInteraction(String userContent, Boolean story) {
+    public void onFragmentInteraction(String userContent, String metaAddress, Boolean story) {
         hideKeyboard(this);
-        userInputFragment.userInput.setVisibility(View.GONE);
-        userInputFragment.update.setVisibility(View.GONE);
-        //TODO: put strings in resource
-        userInputFragment.welcomemsg.setText("Hello " + userContent + ". This is an interactive story that requires " +
-                "actual walking around in real life. Are you ready to take a few steps to reach your destination?");
         imageFragment.updateImageView(userContent, this);
+        metaAddr = metaAddress;
 
         //if story is set to true in user input fragment, the story can be shown on main layout
         if (story) {
             storyLayout.setVisibility(View.VISIBLE);
+            //insert MetaWear MAC Address here
+            //todo maybe have preference where user can enter his metawear mac address
+            retrieveBoard(metaAddr);
         }
     }
 
@@ -238,9 +244,6 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         serviceBinder = (BtleService.LocalBinder) service;
 
         Log.i("accelerator", "Service connected");
-
-        //insert MetaWear MAC Address here
-        retrieveBoard("CA:CF:B2:0E:44:36");
     }
 
     /*

@@ -27,6 +27,8 @@ public class Story {
         dbAdapter = new DatabaseAdapter(context);
         mPages = new Page[7]; //Stories array
 
+        //todo maybe give instructions in github on how to add extra stories
+        //todo why not array of strings in res https://developer.android.com/guide/topics/resources/string-resource.html#StringArray
         mPages[0] = new Page(context.getString(R.string.page0), 0, 1, "bg0", 0);
         mPages[1] = new Page(context.getString(R.string.page1), 2, 3, "bg1", 10);
         mPages[2] = new Page(context.getString(R.string.page2), 4, 5, "bg2", 20);

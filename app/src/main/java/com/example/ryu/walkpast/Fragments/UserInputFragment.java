@@ -23,12 +23,15 @@ public class UserInputFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     public TextView welcomemsg;
-    public EditText userInput;
-    public Button update;
+    public EditText editUserName;
+    public Button updateName;
+    public EditText editMetaWear;
+    public Button updateMetaWear;
     public Button start;
     private String userData;
-    //private String gender;
-    //private Spinner spinner;
+    private String metaAddr;
+    private TextView askMetaWear;
+    private TextView explainMetaWear;
 
     public UserInputFragment() {
     }
@@ -40,50 +43,43 @@ public class UserInputFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_userinput, container, false);
         welcomemsg = view.findViewById(R.id.whoareyou);
-        userInput = view.findViewById(R.id.user_input);
+        editUserName = view.findViewById(R.id.user_name);
+        explainMetaWear = view.findViewById(R.id.whatismac);
+        editMetaWear = view.findViewById(R.id.user_metawear);
 
-        /*
-        //Spinner in case of choosing gender
-        spinner = view.findViewById(R.id.spinner);
-        String[] items = new String[]{"female", "male", "all"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                switch (position) {
-                    case 0:
-                        gender = "female";
-                        break;
-                    case 1:
-                        gender = "male";
-                        break;
-                    case 2:
-                        gender = "all";
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        */
 
         //button for name input
-        update = view.findViewById(R.id.button);
-        update.setOnClickListener(new View.OnClickListener() {
+        updateName = view.findViewById(R.id.button);
+        updateName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userInput.getText().toString().equals("")) {
+                if (editUserName.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "User input value must be filled", Toast.LENGTH_LONG).show();
                     return;
                 }
-                userData = userInput.getText().toString();
-                onButtonPressed(userData, false);
+                userData = editUserName.getText().toString();
+                welcomemsg.setText("What is your MetaWear MAC address?");
+                editUserName.setVisibility(View.GONE);
+                updateName.setVisibility(View.GONE);
+                editMetaWear.setVisibility(View.VISIBLE);
+                explainMetaWear.setVisibility(View.VISIBLE);
+                updateMetaWear.setVisibility(View.VISIBLE);
+            }
+        });
+
+        //button for metawear address input
+        updateMetaWear = view.findViewById(R.id.button2);
+        updateMetaWear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                metaAddr = editMetaWear.getText().toString();
+                onButtonPressed(userData, metaAddr, false);
+                editMetaWear.setVisibility(View.GONE);
+                updateMetaWear.setVisibility(View.GONE);
+                //TODO: put strings in resource
+                welcomemsg.setText(getString(R.string.hello) + " " + userData + ". This is an interactive story that requires " +
+                        "actual walking around in real life. Are you ready to take a few steps to reach your destination? Take your " +
+                        "MetaWear with you to see your character move around. Let's go!");
                 start.setVisibility(View.VISIBLE);
             }
         });
@@ -95,7 +91,7 @@ public class UserInputFragment extends Fragment {
             public void onClick(View v) {
                 getView().setVisibility(View.GONE);
                 if (mListener != null) {
-                    mListener.onFragmentInteraction(userData, true);
+                    mListener.onFragmentInteraction(userData, metaAddr, true);
                 }
             }
         });
@@ -108,9 +104,9 @@ public class UserInputFragment extends Fragment {
      If button story is true the application will know that the second button has been pressed and
      the story can be shown.
      */
-    public void onButtonPressed(String userContent, Boolean story) {
+    public void onButtonPressed(String userContent, String userAddr, Boolean story) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(userContent, story);
+            mListener.onFragmentInteraction(userContent, userAddr, story);
         }
     }
 
@@ -140,7 +136,7 @@ public class UserInputFragment extends Fragment {
      INFORM MAIN ACTIVITY THAT BUTTON HAS BEEN PRESSED
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(String userContent, Boolean story);
+        void onFragmentInteraction(String userContent, String userMetaWear, Boolean story);
     }
 
 }

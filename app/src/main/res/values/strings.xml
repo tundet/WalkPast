@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">WalkPast</string>
-    <string name="steps_taken">Steps Taken: </string>
+    <string name="steps_taken">Steps Taken:\ </string>
     <string name="_0">0</string>
-    <string name="total_steps">Total Steps: </string>
-    <string name="needed_steps">Steps to take: </string>
+    <string name="total_steps">Total Steps:\ </string>
+    <string name="needed_steps">Steps left to take:\ </string>
     <string name="update_button">OK</string>
     <string name="who_are_you">Who are you?</string>
     <string name="background">Background</string>
@@ -36,6 +36,12 @@
     <string name="choice9">Lol nope, let\'s get out of here</string>
     <string name="choice10">Fug.</string>
     <string name="choice11">Start over</string>
+    <string name="hello">Hello</string>
+    <string name="asking_user">Asking for information and displaying welcome message</string>
+    <string name="explain_metawear">Explaining MAC address</string>
+    <string name="where_to_get_address">(Download the official MetaWear app from Play Store and connect to your device to see the address. Example: CA:CF:B2:0E:44:36)</string>
+    <string name="input_for_address">User input for MAC address</string>
+    <string name="confirm_button">Button to give MAC</string>
 
 
 </resources>
