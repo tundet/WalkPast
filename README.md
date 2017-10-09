@@ -3,7 +3,7 @@ Is an interactive story game for android that uses sensors and requires the play
 The project was created to test various android functions and features, while building a well-rounded fun game.
 <p align="center">
   <img src="screenshots/Screenshot_2017-10-09-12-43-39.png" width="300"/>
-  <img src="screenshots/Screenshot_2017-10-09-12-44-15.png" width="300"/>
+  <img src="screenshots/Screenshot_2017-10-09-14-44-37.png" width="300"/>
 </p>
 
 ## Project includes
@@ -17,6 +17,7 @@ The project was created to test various android functions and features, while bu
 * Fragments
 * Connection to some API
 * Asynchronous tasks
+* Multiple language support (EN & FI)
 
 ## Requirements & Dependencies
 * MetaWear Sensor Accelerometer 3.1.0 (optional)
