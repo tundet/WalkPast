@@ -1,11 +1,13 @@
 # WalkPast
 Is an interactive story game for android that uses sensors and requires the player to move around in real life to get forward in the story.
+The project was created to test various android functions and features, while building a well-rounded fun game.
+<p align="center">
+  <img src="screenshots/Screenshot_2017-10-09-12-43-39.png" width="300"/>
+  <img src="screenshots/Screenshot_2017-10-09-12-44-15.png" width="300"/>
+</p>
 
-Thank you Frebers.com for the backgrounds and Lorem Avatar for the characters.
+## Project includes
 
-## Project Scope
-
-### Done
 * BT-communication to external sensor
 * Phone’s internal step counter sensor
 * Accessibility taken into consideration during development
@@ -14,17 +16,14 @@ Thank you Frebers.com for the backgrounds and Lorem Avatar for the characters.
 * Clean code
 * Fragments
 * Connection to some API
-
-### Not done
-* Have AR related functionality
-* Extra "hardware" on addition to sensors (gps, camera,...)
+* Asynchronous tasks
 
 ## Requirements & Dependencies
-* MetaWear Sensor Accelerometer 3.1.0 (works without too)
+* MetaWear Sensor Accelerometer 3.1.0 (optional)
 * Minimum Android 5.0 API 21
 * Targeted Android 8.0 API 26
 * Picasso 2.5.2
-* LoremAvatar API
+* LoremAvatar API (currently service down, replaced with placeholder)
 
 ## Installation
 
@@ -32,22 +31,26 @@ Thank you Frebers.com for the backgrounds and Lorem Avatar for the characters.
 ```sh
 git clone git@github.com:/tundet/walkpast.git
 ```
-### 2. Configure MetaWear
 
-The project uses MetaWear's accelerometer to move the character, which means that the MetaWear MAC address is needed.
-
-**MetaWear:** Download MetaWear app from Store --> Connect to device --> Check MAC address
-
-**Android Studio:** Go to MainActivity --> find method onServiceConnected() --> insert correct MetaWear MAC address
-
-### 4. Run the project
+### 2. Run the project
 
 **Android Studio:** Go to Run --> Run 'MainActivity' --> Select desired device from list
 
 **Note**: Tested only on Samsung Galaxy S5 API 23
 
-## Schedule
-https://trello.com/b/tAaesoy9/walkpast  
-I decided to use Trello, because last time my team didn't allow me to have a bison in the background. Now I can have a bison in the background.  
+## Schedule and issues
+[Trello Board](https://trello.com/b/tAaesoy9/walkpast) 
 The cards are connected to commits done on github.  
-Labels are Not Done (red), In Progress (yellow) and Done (green).  
+Labels are Not Done (red), In Progress (yellow) and Done (green).
+New ideas are welcomed.
+
+## UI and UX documentation
+[Only visible for Metropolia students](https://docs.google.com/a/metropolia.fi/document/d/19tY3G-ByqmQkliVcM3lVjWEUT2q8Ct62Z6aoNd20kz4/edit?usp=sharing)
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgements and Credits
+* Backgrounds by [Frebers.com](http://www.frebers.com/)
+* Player characters from [Lorem Avatar](http://loremavatar.com/) API
+* Original character placeholder design by [Freepik](http://www.freepik.com/)
