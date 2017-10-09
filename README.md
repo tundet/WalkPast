@@ -2,6 +2,8 @@
 Is an interactive story game for android that uses sensors and requires the player to move around in real life to get forward in the story.
 The project was created to test various android functions and features, while building a well-rounded fun game.
 
+!["Pick a choice"](screenshots/Screenshot_2017-10-09-12-43-39.png)!["Walk to move forward in story"](screenshots/Screenshot_2017-10-09-12-44-15.png)
+
 ## Project includes
 
 * BT-communication to external sensor
