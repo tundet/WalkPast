@@ -139,7 +139,6 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             choice2.setText(c.getText());
             mProgressBar.setProgress(0);
         } else {
-            //TODO: show total steps at end of game
             choice1.setText(c.getText());
             choice1.setVisibility(View.VISIBLE);
             choice2.setVisibility(View.GONE);
@@ -300,8 +299,6 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
                             @Override
                             public void apply(Data data, Object... env) {
                                 Float y = data.value(Acceleration.class).y();
-                                Float x = data.value(Acceleration.class).x();
-                                //Log.i("accelerator", y.toString());
                                 if (y > 0) {
                                     imageFragment.updateImage.setRotation(3);
                                 } else if (y < 0) {
@@ -317,7 +314,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             @Override
             public Void then(Task<Route> task) throws Exception {
                 if (task.isFaulted()) {
-                    //TODO: show toast on main UI thread
+                    //TODO: show toast on main UI thread whether board is configured
                     Log.w("accelerator", "Failed to configure", task.getError());
                 } else {
                     Log.i("accelerator", "Configured");

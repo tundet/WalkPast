@@ -18,15 +18,21 @@ public class Story {
 
     /*
      INSERT STORY INTO DATABASE ON INITIALIZATION
-     //TODO: insert only once
+     //TODO: insert only once (after story is complete and doesn't need to be edited anymore)
      */
     public Story(Context context) {
 
         pages = new Page[7];
 
         //todo maybe give instructions in github on how to add extra stories
-        //todo why not array of strings in res https://developer.android.com/guide/topics/resources/string-resource.html#StringArray
 
+    /*
+     CREATING YOUR OWN PAGES ARRAY:
+     - Add a story string (preferably from res so it can be translated)
+     - Add a reference to a choice or two in choices array
+     - Give the page a background
+     - Add required steps needed to take to get to the next page
+     */
         pages[0] = new Page(context.getString(R.string.page0), 0, 1, "bg0", 10);
         pages[1] = new Page(context.getString(R.string.page1), 2, 3, "bg1", 20);
         pages[2] = new Page(context.getString(R.string.page2), 4, 5, "bg2", 30);
@@ -35,6 +41,11 @@ public class Story {
         pages[5] = new Page(context.getString(R.string.page5), 10, "bg6", 0);
         pages[6] = new Page(context.getString(R.string.page6), 11, "bg5", 0);
 
+    /*
+     CREATING YOUR OWN CHOICES ARRAY:
+     - Add a button string (preferably from res so it can be translated)
+     - Add a reference to a page in pages array that it will take you to
+     */
         choices = new Choice[12];
         choices[0] = new Choice(context.getString(R.string.choice0), 1);
         choices[1] = new Choice(context.getString(R.string.choice1), 2);
@@ -46,21 +57,10 @@ public class Story {
         choices[7] = new Choice(context.getString(R.string.choice7), 4);
         choices[8] = new Choice(context.getString(R.string.choice8), 5);
         choices[9] = new Choice(context.getString(R.string.choice9), 6);
+        //last choices' buttons should be configured in MainActivity to react in a different way from the rest
         choices[10] = new Choice(context.getString(R.string.choice10), 0);
         choices[11] = new Choice(context.getString(R.string.choice11), 0);
 
-        /*for (Page page : mPages) {
-            Log.i("page", "added");
-            dbAdapter.savePage(page);
-        }
-        for (Choice choice : mChoices) {
-            Log.i("choice", "added");
-            dbAdapter.saveChoice(choice);
-        }
-
-        dbAdapter.pages = dbAdapter.retrievePages();
-        dbAdapter.choices = dbAdapter.retrieveChoices();
-        */
     }
 
     public static Page[] getPages() {
