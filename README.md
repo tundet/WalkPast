@@ -37,6 +37,10 @@ git clone git@github.com:/tundet/walkpast.git
 
 **Android Studio:** Go to Run --> Run 'MainActivity' --> Select desired device from list
 
+Or 
+
+**Compile on the command line:** [Instructions](https://developer.android.com/studio/build/building-cmdline.html)
+
 **Note**: Tested only on Samsung Galaxy S5 API 23
 
 ## Schedule and issues
