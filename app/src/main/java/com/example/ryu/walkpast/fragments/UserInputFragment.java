@@ -48,7 +48,7 @@ public class UserInputFragment extends Fragment {
         editUserName = view.findViewById(R.id.user_name);
         explainMetaWear = view.findViewById(R.id.whatismac);
         editMetaWear = view.findViewById(R.id.user_metawear);
-        //fiöters for MAC address pattern
+        //filters for MAC address pattern
         editMetaWear.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
         editMetaWear.setSingleLine();
         InputFilter[] filters = new InputFilter[1];
@@ -98,6 +98,10 @@ public class UserInputFragment extends Fragment {
         updateMetaWear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editMetaWear.getText().length() < 17) {
+                    Toast.makeText(getActivity(), R.string.not_long_enough, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 onButtonPressed(userData, metaAddr, false);
                 metaAddr = editMetaWear.getText().toString();
                 editMetaWear.setVisibility(View.GONE);
@@ -125,7 +129,7 @@ public class UserInputFragment extends Fragment {
 
     /*
      TELLING LISTENER THAT A BUTTON HAS BEEN PRESSED
-     If button story is true the application will know that the second button has been pressed and
+     If button story is true the application will know that the Start second button has been pressed and
      the story can be shown.
      */
     public void onButtonPressed(String userContent, String userAddr, Boolean story) {

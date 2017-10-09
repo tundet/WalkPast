@@ -18,7 +18,6 @@ public class Player {
     private int steps;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
-    private int currentPage;
 
     public Player(Context context) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);

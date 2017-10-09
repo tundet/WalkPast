@@ -71,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="39dp"
             android:clickable="false"
-            android:contentDescription="@string/steps_taken"
-            android:text="@string/_0"
+            android:textSize="15sp"
+            android:text="@string/walk_to_fill_progress"
             android:visibility="gone" />
 
         <TextView
@@ -105,7 +105,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="5dp"
-        android:layout_marginBottom="41dp"
         android:clickable="false"
         android:contentDescription="@string/step_progress_bar"
         android:max="100"

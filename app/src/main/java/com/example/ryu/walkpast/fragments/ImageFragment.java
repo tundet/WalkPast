@@ -45,8 +45,8 @@ public class ImageFragment extends Fragment {
         //avatarURL = avatarAPI.generateAvatar(newText, "all", "256x");
         //Picasso.with(context).load(avatarURL).into(updateImage);
         Picasso.with(context.getApplicationContext())
-                //API currently unavailable so image is set to Spondebob Squarepants
-                .load("https://vignette2.wikia.nocookie.net/spongebob/images/6/6c/OldSpongeBobStock5-25-13.png")
+                //API currently unavailable so image is set to a design by freepik.com
+                .load("http://users.metropolia.fi/~tundet/web/images/luuranko.png")
                 .placeholder(R.drawable.progress_animation)
                 .resize(400, 503)
                 .into(updateImage);

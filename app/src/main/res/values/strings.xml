@@ -45,6 +45,8 @@
     <string name="instruction">. This is an interactive story that requires actual walking around in real life. Are you ready to take a few steps to reach your destination? Take your MetaWear with you to see your character move around. Let\'s go!</string>
     <string name="input_must_be_filled">User input value must be filled</string>
     <string name="what_is_mac_address">What is your MetaWear MAC address?</string>
+    <string name="not_long_enough">MAC address not long enough</string>
+    <string name="walk_to_fill_progress">To reach your destination walk until the progress bar on the bottom is full.</string>
 
 
 </resources>

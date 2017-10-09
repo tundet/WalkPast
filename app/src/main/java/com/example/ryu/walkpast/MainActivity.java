@@ -61,6 +61,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     private Boolean metaWear = false;
     private UserInputFragment userInputFragment;
     private DatabaseAdapter dbAdapter;
+    private Context context;
 
     /*
      SETUP ACTIVITY
@@ -68,6 +69,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
         //setup layouts
         setContentView(R.layout.activity_main);
         storyLayout = findViewById(R.id.storylayout);
@@ -141,6 +143,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             choice1.setText(c.getText());
             choice1.setVisibility(View.VISIBLE);
             choice2.setVisibility(View.GONE);
+            totalTextView.setVisibility(View.VISIBLE);
         }
 
         //listener for choices, when clicked get next page's index, start listening to counter
@@ -157,6 +160,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
                     mStepCounter.startListening(MainActivity.this);
                     startAccelerator();
                     buttonsInVisible();
+                    totalTextView.setVisibility(View.GONE);
                 }
             }
         });
@@ -186,7 +190,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     private void buttonsInVisible() {
         choice1.setVisibility(View.GONE);
         choice2.setVisibility(View.GONE);
-        counterTextView.setText(getString(R.string.needed_steps) + String.valueOf(mCurrentPage.getSteps()));
+
         counterTextView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -197,9 +201,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     @Override
     public void onStepChanged(int steps) {
         //update player's, views' and progressbar's steps
-        //todo maybe find a way to detect the frist step (actually updates only after 3-5 steps and feels confusing)
         mPlayer.setSteps(steps);
-        counterTextView.setText(getString(R.string.needed_steps) + String.valueOf(mCurrentPage.getSteps() - steps));
         totalTextView.setText(getString(R.string.total_steps) + String.valueOf(mPlayer.getTotalSteps() + steps));
         mProgressBar.setProgress(steps);
 
@@ -273,7 +275,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     /*
      CONNECT TO BLUETOOTH DEVICE AND CONFIGURE ACCELERATOR
      */
-    public void retrieveBoard(final String macAddress) {
+    private void retrieveBoard(final String macAddress) {
         final BluetoothManager btManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         final BluetoothDevice remoteDevice =
@@ -299,10 +301,10 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
                             public void apply(Data data, Object... env) {
                                 Float y = data.value(Acceleration.class).y();
                                 Float x = data.value(Acceleration.class).x();
-                                Log.i("accelerator", y.toString());
-                                if (x > 0) {
+                                //Log.i("accelerator", y.toString());
+                                if (y > 0) {
                                     imageFragment.updateImage.setRotation(3);
-                                } else if (x < 0) {
+                                } else if (y < 0) {
                                     imageFragment.updateImage.setRotation(-5);
                                 }
                             }
@@ -315,13 +317,11 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
             @Override
             public Void then(Task<Route> task) throws Exception {
                 if (task.isFaulted()) {
+                    //TODO: show toast on main UI thread
                     Log.w("accelerator", "Failed to configure", task.getError());
-                    //TODO: toast now working?
-                    Toast.makeText(getBaseContext(), "Failed to connect to MetaWear", Toast.LENGTH_LONG).show();
                 } else {
                     Log.i("accelerator", "Configured");
                     metaWear = true; //confirm that board exists so that it can be referred to later
-                    Toast.makeText(getBaseContext(), "Connected to MetaWear", Toast.LENGTH_LONG).show();
                 }
 
                 return null;
@@ -332,7 +332,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     /*
      START ACCELERATOR
      */
-    public void startAccelerator() {
+    private void startAccelerator() {
         if (metaWear) {
             accelerometer.acceleration().start();
             accelerometer.start();
@@ -342,7 +342,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     /*
      STOP ACCELERATOR
      */
-    public void stopAccelerator() {
+    private void stopAccelerator() {
         if (metaWear) {
             accelerometer.acceleration().stop();
             accelerometer.stop();
@@ -352,7 +352,7 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
     /*
      HIDE KEYBOARD
      */
-    public static void hideKeyboard(Activity activity) {
+    private void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
         if (view == null) {
@@ -360,5 +360,15 @@ public class MainActivity extends Activity implements StepCounter.Listener, User
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    private void showToast() {
+        if (!metaWear) {
+            Toast.makeText(context, "Failed to connect to MetaWear", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, "Connected to MetaWear", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 
 }

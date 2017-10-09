@@ -32,7 +32,7 @@ public class Story {
         pages[2] = new Page(context.getString(R.string.page2), 4, 5, "bg2", 30);
         pages[3] = new Page(context.getString(R.string.page3), 6, 7, "bg3", 40);
         pages[4] = new Page(context.getString(R.string.page4), 8, 9, "bg4", 50);
-        pages[5] = new Page(context.getString(R.string.page5), 10, "bg6", 10);
+        pages[5] = new Page(context.getString(R.string.page5), 10, "bg6", 0);
         pages[6] = new Page(context.getString(R.string.page6), 11, "bg5", 0);
 
         choices = new Choice[12];
