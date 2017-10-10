@@ -1,4 +1,8 @@
 # WalkPast
+[![GitHub version](https://badge.fury.io/gh/tundet%2Fwalkpast.svg)](https://badge.fury.io/gh/tundet%2Fwalkpast)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![platform](http://img.shields.io/badge/platform-Android-blue.svg)
+
 Is an interactive story game for android that uses sensors and requires the player to move around in real life to get forward in the story.
 The project was created to test various android functions and features, while building a well-rounded fun game.
 <p align="center">
