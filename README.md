@@ -6,9 +6,9 @@
 Is an interactive story game for android that uses sensors and requires the player to move around in real life to get forward in the story.
 The project was created to test various android functions and features, while building a well-rounded fun game.
 <p align="center">
-  <img src="screenshots/screenshot1.jpg" width="300"/>
-  <img src="screenshots/screenshot2.jpg>" width="300"/>
-  <img src="screenshots/screenshot3.jpg>" width="300"/>
+  <img src="screenshots/screenshot1.jpg" width="200"/>
+  <img src="screenshots/screenshot2.jpg" width="200"/>
+  <img src="screenshots/screenshot3.jpg" width="200"/>
 </p>
 
 ## Project includes
@@ -16,7 +16,6 @@ The project was created to test various android functions and features, while bu
 * BT-communication to external sensor
 * Phone’s internal step counter sensor
 * Accessibility taken into consideration during development
-* UI based on material design guidelines
 * SQLite database
 * Clean code
 * Fragments
@@ -63,4 +62,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgements and Credits
 * Backgrounds by [Frebers.com](http://www.frebers.com/)
 * Player characters from [Lorem Avatar](http://loremavatar.com/) API
-* Original character placeholder design by [Freepik](http://www.freepik.com/)
