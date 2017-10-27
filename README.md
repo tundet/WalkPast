@@ -6,8 +6,9 @@
 Is an interactive story game for android that uses sensors and requires the player to move around in real life to get forward in the story.
 The project was created to test various android functions and features, while building a well-rounded fun game.
 <p align="center">
-  <img src="screenshots/Screenshot_2017-10-09-12-43-39.png" width="300"/>
-  <img src="screenshots/Screenshot_2017-10-09-14-44-37.png" width="300"/>
+  <img src="screenshots/screenshot1.jpg" width="300"/>
+  <img src="screenshots/screenshot2.jpg>" width="300"/>
+  <img src="screenshots/screenshot3.jpg>" width="300"/>
 </p>
 
 ## Project includes
